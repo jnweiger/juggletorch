@@ -1,0 +1,143 @@
+					jw, Wed Jan  9 00:19:20 CET 2013
+
+one-pin wiring for programmable led strip
+-----------------------------------------
+
+  attiny861 
+
++3.7V ---  5 --- VCC
+   0V --- 15 --- GND
+  PA7 --- 11 --- DAT
+
+					jw, Tue Jan  8 23:40:38 CET 2013
+hand wired leds
+---------------
+
+       tiny861 bottom view
+              __   __
+bot rd ---- 20  \_/  1  
+bot yl ---- 19       2
+bot bl ---- 18       3
+bot wh ---- 17       4 ---- med yl
+	    16       5
+	    15       6
+top rd ---- 14       7 ---- med yl
+top yl ---- 13       8 
+top bl ---- 12       9
+top gn ---- 11_______10
+
+details see juggletorch.c comments.
+
+
+					jw, Sun Jun 26 03:16:14 CEST 2011
+The pcb is best build from pyralux, http://www.tech-place.com
+
+					jw, Sun Aug 17 13:50:26 CEST 2008
+Illuminated Clubs
+-----------------
+
+This is a low-cost design how to equip juggling clubs with an array of 
+colorful and programmable LEDs. Programming can be done with an ordinary 
+TV-Infrared Remote Control. Handle is not illumniated, except for one optional
+LED at the bottom Knob.
+
+Material:
+3x Club Radical Fish flourescent. (15 EUR each)
+   193gr, 517mm long, handle length: 220mm, handle diameter 18-22mm,
+   center of gravity: 308mm from handle.
+   wooden stick: 16mm possible opening: 30mm diameter on top.
+
+   (Reference: Beard Club 222gr, 517mm, handle 190mm, 19-30mm, cog 305mm)
+
+Alternate name:
+ Radical Fish Piranha Fluro '52' fluro green
+
+Per club (aka 3x):
+
+ 18x LED 5mm 0.33 gr	(inside head) 8x red, 6x yellow, 4x blue
+ 2x  LED 3mm 0.11 gr	(top & bottom knob) 1x green, 1x white
+ 1x  IR reciever
+ 1x  attiny861, attiny2313 or attiny44, SOIC20 0.50gr / PDIP20 1.2gr
+ 2x  LiPo cell (2P), 3.7V 310mAh
+ 1x  Charge Plug, Mini-connector with switch.
+ 1x  charge logic, max 300mA, max 4.1V, MAX1555, LM3658
+ 1x  Coil or Mini-electret-Microphone to detect movement or sound.
+ 1x  mech fixture 250mm, 16mm inner dia, max 30mm outer dia
+     holds cells, LEDs, CPU, etc.
+12x Resistors: 10 ohm (4.0V)
+12x Resistors: 10 ohm (3.7V)
+12x Resistors: 25 ohm (3.2V)
+25x Resistors: 55 ohm (2.6V)
+    Resistors: 72 ohm (2.27V)
+25x Resistors: 80 ohm (2.1V)
+    Resistors: 100 ohm (1.7V)
+
+
+Infrared recievers:
+-------------------
+see http://www.lirc.org/receivers.html
+
+conrad:
+ 171069-62, Vishay TSOP 1736	(36khz, 4.5 - 5.5 V, 1.55 EUR
+
+ IRDA 36KHZ 45° 940NM 5 V TYP: IRM 2636A 156405-LN 4.5-5.5V 1.36 EUR
+
+ INFRAROT-TRANSCEIVER TFDU4100-TR3, 2.7-5.5V 1.3mA	
+ Artikel-Nr.: 183124 - 62 880nm	6.10EUR
+
+HI-D470R    (IR reciever) 2.7 - 5V
+HI-M602V0   (IR reciever) 2.7 - 5V
+Siemens SFH 5110 (successor of SFH 506)
+Everlight IRM-2238	4.5-5.5V
+Everlight IRM-3636A	2.7-5.5V
+Amstel A3FT12LM		2.7-6V
+Vishay TSOP32236	2.7V	36khz	3mA idle
+Vishay TSOP36236	2.7V	36khz	3mA idle
+
+rsonline.de:
+Sharp IR GP1U271R	4.7-5.3	38kHz	2.73 EUR
+Kingbright L-7113SEC-H 5mm orange 10000mcd 20° 2V 20mA 6.73/10 EUR
+Toshiba TLYH180P 5mm yellow 8000mcd 8° 2.1V 20mA 0.97 EUR
+Toyoda Gosei   E1L51-3G0A2 green 6700mcd 15° 3.3V 20mA 14.49/5 EUR
+
+Farnell:
+    Vishay TSOP36236 SMD			2.05 EUR
+10x Vishay TSOP32236 IR reciever		1.30 EUR
+1x HERO HUVL400-520B UV LED, 5MM, 2200mcd, 	3.80 EUR
+1x BIVAR LED3-UV-400-30, 3mm, 12mW, 		4.40 EUR
+   1141082 TOSHIBA TLRE20TP(F) Rot 5mm 7000mcd 8° 20mA 1.95V 1.05 EUR
+12x 1497974 OPTEK OVLFG3C7, green   5mm, 30°, 5200mcd, 4.0V 20mA  0.99 EUR
+   1497977 OPTEK OVLGB0C6B9, blue 5mm 6° 3800mcd 4.0V
+25x 1141086 TOSHIBA TLSH157P(TU,F) red 5mm 2700mcd 22° 20mA 2.1V 0.33 EUR
+25x 1581180 MULTICOMP MCL053SYC yellow 5mm 2500mcd 16° 2.6V 0.26 EUR
+12x 3664569 FORGE EUROPA FNL-U501B07WCSL blue 2280mcd 25° 3.7V 25mA 1.53 EUR
+12x 1461637 SPC TECHNOLOGY MV8W00 white 5500mcd 20° 3.2V 20mA 0.59 EUR
+    1141081 TOSHIBA TLPGE183P(F) green 5mm, 1200mcd 7° 2.27V 0.72 EUR
+5x  1455168 ATMEL ATTINY861-20SU, 8k, 512b, soic20, 2.38 EUR
+5x  1455137 ATMEL ATTINY24-20SSU, 2k, 128b, soic14, 1.65 EUR
+
+5x  1312586 LM3658SD-B LiPo Charger, 5V 200mA-1A,  2x10k 2x1uF, LLP10, 1.05 EUR
+3x 143337 SCHURTER 4801.2200 BUCHSE KLINKE SCHALT 2.5MM 2POLIG   3.05 EUR
+5x 1216976 LUMBERG 1501 02 Buchse SMD 2.5mm		1.65 EUR
+10x 1217014 LUMBERG KLB 1 BUCHSE 2.5MM 2POLIG 	        0.51 EUR
+10x 1243260 LUMBERG KLS 10 KLINKENSTECKER 2.5MM 2POLIG  0.37 EUR
+10x 1267369 PRO SIGNAL MP-022LN KLINKENSTECKER ABGEWINKELT 2,5MM 0.42 EUR
+
+www.leds.de
+Kundennummer: 499451
+ Bestellung Nr: 104193
+
+50  15605  Hyperbright LED red 12000mcd 20° 2.2V     0,21 €   10,50 €
+25  15507  Hyperbright LED yellow 10000mcd 20° 2.0V  0,49 €   12,25 €
+15  15505  Hyperbright LED green 15000mcd 20° 3.0V   0,29 €   4,35 €
+15  15405  Ultrabright LED blue 8000mcd 20° 3.1V     0,18 €   2,70 €
+50  15005  Ultrabright LED white 7000mcd 20° 3.1V    0,20 €   10,00 €
+10  13001  Hyperbright LED white 10000mcd 20° 3.1V   0,47 €   4,70 €
+10  13601  Superbright LED orange 4000mcd 20° 1.7V   0,27 €   2,70 €
+1   15301  Superbright LED UV 15° 3.1V               3,12 €   3,12 €
+5   15401  Superbright LED UV 130mcd 20° 3.1V        0,39 €   1,95 €
+
+
+www.der-schweighofer.de
+4  60894  KOKAM AKKUPACK 310HD-3S 10C 11,1V  13,90  55,60
+
