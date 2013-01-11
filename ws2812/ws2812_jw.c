@@ -48,7 +48,7 @@
 #define SEND_C		_M(SENDBYTE_255; SENDBYTE_0;   SENDBYTE_255)
 #define SEND_M		_M(SENDBYTE_0;   SENDBYTE_255; SENDBYTE_255)
 #define SEND_Y		_M(SENDBYTE_191; SENDBYTE_255; SENDBYTE_0)
-#define SEND_ORANGE	_M(SENDBYTE_95; SENDBYTE_255; SENDBYTE_0)
+#define SEND_ORANGE	_M(SENDBYTE_95;  SENDBYTE_255; SENDBYTE_0)
 
 
 #define SEND_W		_M(SENDBYTE_255; SENDBYTE_255; SENDBYTE_255)
@@ -65,11 +65,11 @@ int main()
   // works with 5.0V: 0,   0 --> 0, 108
   // fails with 3.7V: 0, 106 --> 0, 127 
   // fails with 5.0V: 0, 109 --> 0, 127 
-  OSCCAL = (0<<7) | (0 & 0x7f);		// doc2588p32
+  OSCCAL = (0<<7) | (50 & 0x7f);		// doc2588p32
   // 0, 0:  16sec for 20x400msec
   // 1, 0:  11sec for 20x400msec
   // 0, 90: 11sec for 20x400msec
-  // 0, 127: 8sec for 20x400msec
+  // 0, 127: 9sec for 20x400msec
   for (;;)
     {
       SEND_K; SEND_K; SEND_K;
