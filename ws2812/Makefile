@@ -4,7 +4,7 @@
 # 2013-01-09, jw@suse.de
 
 NAME          = juggletorch_ws2812
-CFILES        = ws2812.c
+CFILES        = ws2812_jw.c
 
 CPU           = tiny861
 
