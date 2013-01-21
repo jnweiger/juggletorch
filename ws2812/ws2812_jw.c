@@ -10,18 +10,10 @@
 #include <util/delay.h>			// needs F_CPU from cpu_mhz.h
 #include <avr/io.h>
 
-#ifdef PORTA
-# define LED_PORT PORTA
-# define LED_DDR  DDRA
-#else
-# ifdef PORTB
-#  define LED_PORT PORTB
-#  define LED_DDR  DDRB
-# else
-#  error "This CPU has no PORTA or PORTB, try somethig different"
-# endif
-#endif
+#define SNAKE 1
 
+#define LED_PORT PORTA
+#define LED_DDR  DDRA
 #define LED_BITS	(1<<PA7)
 
 #define ON PORTA |= (1<<PA6)
@@ -39,7 +31,9 @@
 #define SENDBYTE_127	_M(BIT0; BIT1; BIT1; BIT1; BIT1; BIT1; BIT1; BIT1)
 #define SENDBYTE_95	_M(BIT0; BIT1; BIT0; BIT1; BIT1; BIT1; BIT1; BIT1)
 #define SENDBYTE_63	_M(BIT0; BIT0; BIT1; BIT1; BIT1; BIT1; BIT1; BIT1)
+#define SENDBYTE_47	_M(BIT0; BIT0; BIT1; BIT0; BIT1; BIT1; BIT1; BIT1)
 #define SENDBYTE_31	_M(BIT0; BIT0; BIT0; BIT1; BIT1; BIT1; BIT1; BIT1)
+#define SENDBYTE_15	_M(BIT0; BIT0; BIT0; BIT0; BIT1; BIT1; BIT1; BIT1)
 #define SENDBYTE_0	_M(BIT0; BIT0; BIT0; BIT0; BIT0; BIT0; BIT0; BIT0)
 
 #define SEND_R		_M(SENDBYTE_0;   SENDBYTE_255; SENDBYTE_0)
@@ -51,10 +45,10 @@
 #define SEND_ORANGE	_M(SENDBYTE_95;  SENDBYTE_255; SENDBYTE_0)
 
 
-#define SEND_W		_M(SENDBYTE_255; SENDBYTE_255; SENDBYTE_255)
-#define SEND_W127	_M(SENDBYTE_127; SENDBYTE_127; SENDBYTE_127)
-#define SEND_W63	_M(SENDBYTE_63;  SENDBYTE_63;  SENDBYTE_63)
-#define SEND_W31	_M(SENDBYTE_31;  SENDBYTE_31;  SENDBYTE_31)
+#define SEND_W		_M(SENDBYTE_255; SENDBYTE_255; SENDBYTE_127)
+#define SEND_W127	_M(SENDBYTE_127; SENDBYTE_127; SENDBYTE_63)
+#define SEND_W63	_M(SENDBYTE_63;  SENDBYTE_63;  SENDBYTE_31)
+#define SEND_W31	_M(SENDBYTE_31;  SENDBYTE_31;  SENDBYTE_15)
 #define SEND_K		_M(SENDBYTE_0;   SENDBYTE_0;   SENDBYTE_0)
 
 int main()
@@ -70,6 +64,30 @@ int main()
   // 1, 0:  11sec for 20x400msec
   // 0, 90: 11sec for 20x400msec
   // 0, 127: 9sec for 20x400msec
+#ifdef SNAKE
+  for (;;)
+    {
+      int8_t i;
+      for (i = 0; i < 24; i++)
+	{
+	  int8_t n; for (n = 0; n < i; n++) SEND_K;
+	  SEND_R; SEND_ORANGE; SEND_Y; SEND_Y; SEND_Y; SEND_W;
+	  for (; n < 24; n++) SEND_K;
+	  _delay_ms(10);
+	}
+      for (i = 0; i < 30; i++) SEND_W; _delay_ms(20);
+      for (i = 24; i >=0; i--)
+	{
+	  int8_t n; for (n = 0; n < i; n++) SEND_K;
+	  SEND_W; SEND_Y; SEND_Y; SEND_Y; SEND_ORANGE; SEND_R;
+	  for (; n < 24; n++) SEND_K;
+	  _delay_ms(10);
+	}
+      for (i = 0; i < 30; i++) SEND_R; _delay_ms(40);
+    }
+#endif
+
+#if 0
   for (;;)
     {
       SEND_K; SEND_K; SEND_K;
@@ -92,4 +110,5 @@ int main()
       SEND_R;
       _delay_ms(200.0); LED_PORT |=   LED_BITS;         // pull high ...
     }
+#endif
 }
