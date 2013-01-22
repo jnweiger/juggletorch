@@ -1,8 +1,11 @@
 /*
- * blink.c -- simple LED blinker
+ * ws2812_juggle.c -- testing an RGB led strip for juggletorch
  *
- * Copyright (C) 2008, jw@suse.de, distribute under GPL, use with mercy.
+ * Copyright (C) 2008, 2012, jw@suse.de, distribute under GPL, use with mercy.
  *
+ *
+ * 2013-01-11, V0.1 - jw   - bringing the led strip alive. Timing is paramount.
+ * 2013-01-21, V0.2 - jw   - 24 leds per juggling club. Simple SNAKE pattern.
  */
 // #include "config.h"
 #include "cpu_mhz.h"
@@ -37,6 +40,8 @@
 #define SENDBYTE_0	_M(BIT0; BIT0; BIT0; BIT0; BIT0; BIT0; BIT0; BIT0)
 
 #define SEND_R		_M(SENDBYTE_0;   SENDBYTE_255; SENDBYTE_0)
+#define SEND_R63	_M(SENDBYTE_0;   SENDBYTE_63;  SENDBYTE_0)
+#define SEND_R31	_M(SENDBYTE_0;   SENDBYTE_31;  SENDBYTE_0)
 #define SEND_G		_M(SENDBYTE_255; SENDBYTE_0;   SENDBYTE_0)
 #define SEND_B		_M(SENDBYTE_0;   SENDBYTE_0;   SENDBYTE_255)
 #define SEND_C		_M(SENDBYTE_255; SENDBYTE_0;   SENDBYTE_255)
@@ -68,22 +73,22 @@ int main()
   for (;;)
     {
       int8_t i;
-      for (i = 0; i < 24; i++)
+      for (i = 0; i < 18; i++)
 	{
 	  int8_t n; for (n = 0; n < i; n++) SEND_K;
 	  SEND_R; SEND_ORANGE; SEND_Y; SEND_Y; SEND_Y; SEND_W;
-	  for (; n < 24; n++) SEND_K;
+	  for (; n < 18; n++) SEND_K;
 	  _delay_ms(10);
 	}
-      for (i = 0; i < 30; i++) SEND_W; _delay_ms(20);
-      for (i = 24; i >=0; i--)
+      for (i = 0; i < 24; i++) SEND_W; _delay_ms(20);
+      for (i = 18; i >=0; i--)
 	{
 	  int8_t n; for (n = 0; n < i; n++) SEND_K;
 	  SEND_W; SEND_Y; SEND_Y; SEND_Y; SEND_ORANGE; SEND_R;
-	  for (; n < 24; n++) SEND_K;
+	  for (; n < 18; n++) SEND_K;
 	  _delay_ms(10);
 	}
-      for (i = 0; i < 30; i++) SEND_R; _delay_ms(40);
+      for (i = 0; i < 24; i++) SEND_R; _delay_ms(1400);
     }
 #endif
 
